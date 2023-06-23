@@ -4,7 +4,7 @@ Discover a world of delicious recipes with our Recipe Recommendation app. Explor
 # User Story Feature.
 * As a user, I want to register for a new account and log in to the app to access all the features and functionalities.
 * As a Registered user,I want to see different recipes.
-* As a Registered user of the recipe app, I want to be able to easily search.
+* As a Registered user of the recipe app, I want to be able to easily search any food.
 * As a Registered user of the recipe app, I want to have access of recipes with detailed instructions and ingredient lists.
 
 # System Architecture
