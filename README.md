@@ -9,3 +9,5 @@ Discover a world of delicious recipes with our Recipe Recommendation app. Explor
 
 # System Architecture
 ![Screenshot 2023-06-23 120654](https://github.com/hamxamehboob/Recipe-Recommendation-App/assets/97390895/035c7a59-7f56-402c-a994-a980d1ef6cc4)
+# ERD Diagram
+![Screenshot 2023-06-23 161751](https://github.com/hamxamehboob/Recipe-Recommendation-App/assets/97390895/ce859004-17b2-49f2-b2d5-138f1316a084)
