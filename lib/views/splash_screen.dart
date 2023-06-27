@@ -15,14 +15,20 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // navigateToHome();
+    navigateToHome();
   }
 
-  // navigateToHome() async {
-  //   await Future.delayed(const Duration(seconds: 5)).then((value) =>
-  //       Navigator.of(context)
-  //           .push(MaterialPageRoute(builder: (_) => const HomePage())));
-  // }
+  navigateToHome() async {
+    await Future.delayed(
+      const Duration(seconds: 5),
+    ).then(
+      (value) => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const HomePage(),
+        ),
+      ),
+    );
+  }
 
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
@@ -33,77 +39,81 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(splash_Image1), fit: BoxFit.cover),
+                image: AssetImage(splashImage1),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: size.width * 0.1,
-                      top: 96,
-                      right: 110,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: size.width * 0.1,
+                    top: 96,
+                    right: 110,
+                  ),
+                ),
+                const Text(
+                  'Welcome to',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    letterSpacing: 0.03,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Container(
+                  height: size.height * 0.1,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(splashImage2),
                     ),
                   ),
-                  const Text("Welcome to",
+                ),
+                SizedBox(height: size.height * 0.017),
+                Container(
+                  padding: const EdgeInsets.only(right: 47, left: 47),
+                  child: const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Discover a world of delicious recipes with our Recipe Recommendation app. Explore a wide range of dishes and easily search for recipes that suit your taste buds. Cooking has never been more enjoyable and accessible!',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          letterSpacing: 0.03,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins')),
-                  const SizedBox(height: 1),
-                  Container(
-                    height: size.height * 0.1,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(splash_Image2),
+                        color: Color.fromARGB(255, 75, 75, 75),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        letterSpacing: 1,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 17),
-                  Container(
-                    padding: const EdgeInsets.only(right: 47, left: 47),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
-                        style: TextStyle(
-                            color: Color(0xFF868889),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                            letterSpacing: 0.03),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                ),
+                SizedBox(
+                  height: size.height * 0.3,
+                ),
+                const Text(
+                  'POWERED BY',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 15,
+                    letterSpacing: 3,
+                    fontWeight: FontWeight.w500,
                   ),
-                  SizedBox(
-                    height: size.height,
+                ),
+                SizedBox(height: size.height * 0.01),
+                const Text(
+                  'Hamza Mehboob',
+                  style: TextStyle(
+                    color: Color(0xFF6CC51D),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                    letterSpacing: 3,
                   ),
-                  const Text(
-                    "POWERED BY",
-                    style: TextStyle(
-                        color: Color(0xFF868889),
-                        fontSize: 15,
-                        letterSpacing: 3,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: size.height),
-                  const Text(
-                    "Hamza Mehboob",
-                    style: TextStyle(
-                        color: Color(0xFF6CC51D),
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                        letterSpacing: 3),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           )
         ],
