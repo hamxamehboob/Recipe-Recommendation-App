@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/images.dart';
+import '../../constants/assets.dart';
 
 class RecipeCart extends StatefulWidget {
   const RecipeCart({super.key});

@@ -1,19 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'recipe.g.dart';
 
+@immutable
 @JsonSerializable()
 class Recipe {
   final String label;
   final String image;
   final List<String> ingredients;
   final String url;
-  final List<String> dietLabels;
-  final List<String> cuisineType;
-  final List<String> mealType;
-  final List<String> dishType;
+  final List<String>? dietLabels;
+  final List<String>? cuisineType;
+  final List<String>? mealType;
+  final List<String>? dishType;
 
-  Recipe({
+  const Recipe({
     required this.label,
     required this.image,
     required this.ingredients,
