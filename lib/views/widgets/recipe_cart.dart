@@ -38,7 +38,7 @@ class _RecipeCartState extends State<RecipeCart> {
                 height: size.height * .01,
               ),
               const Text(
-                'Pasta',
+                'Recipe Name',
                 style: TextStyle(
                   color: Color.fromARGB(255, 78, 206, 78),
                   fontSize: 15,

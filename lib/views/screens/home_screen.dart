@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:recipe_recommendation_app/constants/images.dart';
-import 'package:recipe_recommendation_app/views/information_screen.dart';
-import 'package:recipe_recommendation_app/widgets/recipe_cart.dart';
+import 'package:recipe_recommendation_app/constants/apis.dart';
+import 'package:recipe_recommendation_app/constants/assets.dart';
+import 'package:recipe_recommendation_app/views/widgets/recipe_cart.dart';
+
+import '../../models/recipe_model.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,9 +16,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Recipe? recipe;
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    _getRecipe();
+  }
+
+  _getRecipe() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var uri = Uri.parse(APIConfig.url);
+      var response = await http.get(uri);
+      var responseString = response.body;
+      Map<String, dynamic> parsedJson = jsonDecode(responseString);
+      // print(parsedJson['hits'][0]['recipe']['label']);
+      recipe = Recipe.fromJson(parsedJson);
+      print(recipe?.hits[0].recipe.label ?? '');
+      // setState(() {
+      //   recipe = Recipe.fromJson(parsedJson);
+      //   print(recipe?.hits[0].recipe.label ?? '');
+      // });
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.sizeOf(context);
+    var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -49,9 +81,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      'Featured products',
-                      style: TextStyle(
+                    Text(
+                      recipe?.hits[0].recipe.label ?? '',
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -70,20 +102,32 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: size.height * .02,
                 ),
-                GridView.count(
-                  physics: const ScrollPhysics(),
-                  childAspectRatio: size.height / 800,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: size.width / size.height,
-                  shrinkWrap: true,
-                  children: const [
-                    RecipeCart(),
-                    RecipeCart(),
-                    RecipeCart(),
-                    RecipeCart(),
-                    RecipeCart(),
-                  ],
-                )
+                SizedBox(
+                  height: size.height / 2,
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 4,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GridView.count(
+                        physics: const NeverScrollableScrollPhysics(),
+                        childAspectRatio: size.height / 800,
+                        crossAxisCount: 2,
+                        crossAxisSpacing: size.width / size.height,
+                        shrinkWrap: true,
+                        children: const [
+                          RecipeCart(),
+                          RecipeCart(),
+                          RecipeCart(),
+                          RecipeCart(),
+                          RecipeCart(),
+                          RecipeCart(),
+                          RecipeCart(),
+                          RecipeCart(),
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),

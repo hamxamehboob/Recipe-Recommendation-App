@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_recommendation_app/views/home_screen.dart';
+import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 
-import '../constants/images.dart';
+import '../../constants/assets.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
