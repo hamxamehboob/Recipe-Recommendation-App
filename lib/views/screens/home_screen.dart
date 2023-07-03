@@ -33,14 +33,14 @@ class _HomePageState extends State<HomePage> {
       var response = await http.get(uri);
       var responseString = response.body;
       Map<String, dynamic> parsedJson = jsonDecode(responseString);
-      // print(parsedJson['hits'][0]['recipe']['label']);
-      recipe = Recipe.fromJson(parsedJson);
-      print(recipe?.hits[0].recipe.label ?? '');
-      // setState(() {
-      //   recipe = Recipe.fromJson(parsedJson);
-      //   print(recipe?.hits[0].recipe.label ?? '');
-      // });
-    } catch (e) {}
+      setState(() {
+        recipe = Recipe.fromJson(parsedJson);
+        var label = recipe?.hits[0].recipe.image;
+        print(label);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Text(
-                      recipe?.hits[0].recipe.label ?? '',
+                      recipe?.q ?? "",
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 18,
