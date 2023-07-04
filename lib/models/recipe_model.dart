@@ -4,11 +4,12 @@ part 'recipe.g.dart';
 
 @JsonSerializable()
 class Recipe {
-  String q;
-  List<Hit> hits;
+  @JsonKey(name: 'q')
+  final String query;
+  final List<Hit> hits;
 
-  Recipe({
-    required this.q,
+  const Recipe({
+    required this.query,
     required this.hits,
   });
 
@@ -18,9 +19,9 @@ class Recipe {
 
 @JsonSerializable()
 class Hit {
-  RecipeInfo recipe;
+  final RecipeInfo recipe;
 
-  Hit({required this.recipe});
+  const Hit({required this.recipe});
 
   factory Hit.fromJson(Map<String, dynamic> json) => _$HitFromJson(json);
   Map<String, dynamic> toJson() => _$HitToJson(this);
@@ -28,8 +29,8 @@ class Hit {
 
 @JsonSerializable()
 class RecipeInfo {
-  String uri;
-  String label;
+  final String uri;
+  final label;
   String image;
   List<String> cuisineType;
   List<String> mealType;
