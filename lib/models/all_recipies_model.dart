@@ -1,8 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:recipe_recommendation_app/models/recipe_model.dart';
 import 'package:recipe_recommendation_app/models/recipies_info.dart';
 
-@JsonSerializable()
 part 'all_recipies.g.dart';
 
 class Hit {

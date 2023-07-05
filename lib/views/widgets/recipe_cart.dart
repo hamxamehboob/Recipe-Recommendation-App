@@ -19,6 +19,7 @@ class RecipeCart extends StatelessWidget {
     return Column(
       children: [
         Container(
+          height: size.height / 3.8,
           width: size.width * .46,
           color: const Color.fromARGB(255, 237, 236, 236),
           child: Column(
