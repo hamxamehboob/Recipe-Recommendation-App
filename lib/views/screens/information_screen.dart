@@ -29,8 +29,8 @@ class _InformationScreenState extends State<InformationScreen> {
         itemCount: 4,
         itemBuilder: (context, innerIndex) {
           return const RecipeCart(
-            Text: '',
-            image: '',
+            lblText: '',
+            lblImage: '',
           );
         },
       ),

@@ -1,51 +1,21 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
 
-import '../../constants/apis.dart';
-import '../../models/recipe_model.dart';
-import 'package:http/http.dart' as http;
+class RecipeCart extends StatelessWidget {
+  final String lblText;
+  final String lblImage;
 
-class RecipeCart extends StatefulWidget {
-  final String Text;
-  final String image;
-  const RecipeCart({required this.Text, required this.image});
-  @override
-  State<RecipeCart> createState() => _RecipeCartState();
-}
-
-class _RecipeCartState extends State<RecipeCart> {
-  List<Recipe> recipeList = [];
-  bool isLoading = false;
-  @override
-  void initState() {
-    super.initState();
-    _getRecipe();
-  }
-
-  _getRecipe() async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      var uri = Uri.parse(APIConfig.url);
-      var response = await http.get(uri);
-      var responseString = response.body;
-      Map<String, dynamic> parsedJson = jsonDecode(responseString);
-      setState(() {
-        recipeList.add(Recipe.fromJson(parsedJson));
-        isLoading = false;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+  const RecipeCart({
+    required this.lblText,
+    required this.lblImage,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.sizeOf(context);
+    var size = MediaQuery.of(context).size;
     return Column(
       children: [
         Container(
@@ -54,9 +24,7 @@ class _RecipeCartState extends State<RecipeCart> {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () {
-                  setState(() {});
-                },
+                onTap: () {},
                 child: const Padding(
                   padding: EdgeInsets.only(left: 120, top: 10),
                   child: Icon(Icons.favorite_border),
@@ -73,13 +41,13 @@ class _RecipeCartState extends State<RecipeCart> {
                 },
                 child: Stack(
                   children: [
-                    if (!isLoading && recipeList.isNotEmpty)
+                    if (lblImage.isNotEmpty)
                       CircleAvatar(
                         maxRadius: size.height * .08,
-                        backgroundImage: NetworkImage(widget.image),
+                        backgroundImage: NetworkImage(lblImage),
                         backgroundColor: Colors.transparent,
                       ),
-                    if (isLoading)
+                    if (lblImage.isEmpty)
                       Shimmer.fromColors(
                         baseColor: Colors.grey[300]!,
                         highlightColor: Colors.grey[100]!,
@@ -95,10 +63,11 @@ class _RecipeCartState extends State<RecipeCart> {
                 height: size.height * .01,
               ),
               Text(
-                recipeList.isNotEmpty ? widget.Text : 'loading...',
+                lblText,
                 textAlign: TextAlign.center,
                 softWrap: true,
-                maxLines: 10,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 12, 13, 12),
                   fontSize: 15,
