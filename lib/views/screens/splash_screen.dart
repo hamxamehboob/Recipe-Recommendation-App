@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
 

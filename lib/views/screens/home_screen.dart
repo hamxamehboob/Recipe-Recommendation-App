@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:recipe_recommendation_app/constants/assets.dart';
 import 'package:recipe_recommendation_app/views/widgets/recipe_cart.dart';
 import 'package:recipe_recommendation_app/views/widgets/search_bar.dart';
-
+import 'package:shimmer/shimmer.dart';
+import 'package:http/http.dart' as http;
+import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
 import '../../constants/apis.dart';
 import '../../models/recipe_model.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,7 +38,8 @@ class _HomePageState extends State<HomePage> {
       Map<String, dynamic> parsedJson = jsonDecode(responseString);
       setState(() {
         recipeList.add(Recipe.fromJson(parsedJson));
-        isLoading = false; // Set loading to false when the recipe is loaded
+        isLoading = false;
+        print(recipeList[0].hits.length);
       });
     } catch (e) {
       print(e);
@@ -86,16 +88,82 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: false,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Number of columns in each row
-                      childAspectRatio: size.width /
-                          (size.height /
-                              1.8), // Adjust the aspect ratio as needed
+                      crossAxisCount: 2,
+                      childAspectRatio: size.width / (size.height / 1.8),
                     ),
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return RecipeCart(
-                        Text: '',
-                        image: '',
+                      return Column(
+                        children: [
+                          Container(
+                            height: size.height / 3.8,
+                            width: size.width * .46,
+                            color: const Color.fromARGB(255, 237, 236, 236),
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {});
+                                  },
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 120, top: 10),
+                                    child: Icon(Icons.favorite_border),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            const InformationScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      if (!isLoading && recipeList.isNotEmpty)
+                                        CircleAvatar(
+                                          maxRadius: size.height * .08,
+                                          backgroundImage: NetworkImage(
+                                            recipeList[0]
+                                                .hits[index]
+                                                .recipe
+                                                .image,
+                                          ),
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                      if (isLoading)
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: CircleAvatar(
+                                            maxRadius: size.height * .08,
+                                            backgroundColor: Colors.grey[300],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  recipeList.isNotEmpty
+                                      ? recipeList[0].hits[index].recipe.label
+                                      : 'loading...',
+                                  textAlign: TextAlign.center,
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 12, 13, 12),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),

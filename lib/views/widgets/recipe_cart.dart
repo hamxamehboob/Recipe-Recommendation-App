@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class RecipeCart extends StatefulWidget {
   final String Text;
   final String image;
-  const RecipeCart({Key? key, required this.Text, required this.image});
+  const RecipeCart({required this.Text, required this.image});
   @override
   State<RecipeCart> createState() => _RecipeCartState();
 }
@@ -36,13 +36,14 @@ class _RecipeCartState extends State<RecipeCart> {
       Map<String, dynamic> parsedJson = jsonDecode(responseString);
       setState(() {
         recipeList.add(Recipe.fromJson(parsedJson));
-        isLoading = false; // Set loading to false when the recipe is loaded
+        isLoading = false;
       });
     } catch (e) {
       print(e);
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Column(
@@ -75,8 +76,7 @@ class _RecipeCartState extends State<RecipeCart> {
                     if (!isLoading && recipeList.isNotEmpty)
                       CircleAvatar(
                         maxRadius: size.height * .08,
-                        backgroundImage:
-                            NetworkImage(recipeList[0].hits[0].recipe.image),
+                        backgroundImage: NetworkImage(widget.image),
                         backgroundColor: Colors.transparent,
                       ),
                     if (isLoading)
@@ -95,9 +95,7 @@ class _RecipeCartState extends State<RecipeCart> {
                 height: size.height * .01,
               ),
               Text(
-                recipeList.isNotEmpty
-                    ? recipeList[0].hits[0].recipe.label
-                    : 'loading...',
+                recipeList.isNotEmpty ? widget.Text : 'loading...',
                 textAlign: TextAlign.center,
                 softWrap: true,
                 maxLines: 10,

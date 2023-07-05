@@ -30,7 +30,7 @@ class Hit {
 @JsonSerializable()
 class RecipeInfo {
   final String uri;
-  final label;
+  final String label;
   String image;
   List<String> cuisineType;
   List<String> mealType;
