@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../../models/recipe_model.dart';
-import '../apis.dart';
+import '../api_confiq.dart';
+import '../models/recipe_model.dart';
 
 class HomePageLogic {
   Future<List<Recipe>> _getRecipe() async {
@@ -14,7 +14,6 @@ class HomePageLogic {
       List<Recipe> recipes = [Recipe.fromJson(parsedJson)];
       return recipes;
     } catch (e) {
-      print(e);
       return [];
     }
   }

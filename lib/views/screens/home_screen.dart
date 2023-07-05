@@ -6,7 +6,7 @@ import 'package:shimmer/shimmer.dart';
 
 import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
 
-import '../../constants/providers/home_page_logic.dart';
+import '../../utils/home_page_logic.dart';
 import '../../models/recipe_model.dart';
 
 // HomePage widget
