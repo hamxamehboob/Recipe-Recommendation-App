@@ -2,11 +2,12 @@ import 'package:recipe_recommendation_app/models/recipies_info.dart';
 
 part 'all_recipies.g.dart';
 
-class Hit {
+class all_recipies {
   final RecipeInfo recipe;
 
-  const Hit({required this.recipe});
+  const all_recipies({required this.recipe});
 
-  factory Hit.fromJson(Map<String, dynamic> json) => _$HitFromJson(json);
+  factory all_recipies.fromJson(Map<String, dynamic> json) =>
+      _$HitFromJson(json);
   Map<String, dynamic> toJson() => _$HitToJson(this);
 }

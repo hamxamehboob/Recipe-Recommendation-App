@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/recipe_cart.dart';
+import 'package:recipe_recommendation_app/constants/assets.dart';
+import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 
 class InformationScreen extends StatefulWidget {
-  const InformationScreen({super.key});
+  final String recipeId;
+  const InformationScreen({super.key, required this.recipeId});
 
   @override
   State<InformationScreen> createState() => _InformationScreenState();
@@ -15,24 +16,71 @@ class _InformationScreenState extends State<InformationScreen> {
     final size = MediaQuery.sizeOf(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Information Screen'),
-      ),
-      body: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of columns in each row
-          childAspectRatio: size.width /
-              (size.height / 2), // Adjust the aspect ratio as needed
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(32.0),
+                      bottomRight: Radius.circular(32.0),
+                    ),
+                    child: Image.asset(
+                      homeScreenImage,
+                      width: size.width,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: size.width * .05,
+                      top: size.height * .02,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HomePage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Icon(
+                          Icons.arrow_back_rounded,
+                          size: size.height * .05,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: size.width * .03,
+                  top: size.height * .03,
+                ),
+                child: const Column(
+                  children: [
+                    Text(
+                      'Label from API',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        itemCount: 4,
-        itemBuilder: (context, innerIndex) {
-          return const RecipeCart(
-            lblText: '',
-            lblImage: '',
-          );
-        },
       ),
     );
   }

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:recipe_recommendation_app/constants/assets.dart';
 
 import 'package:recipe_recommendation_app/views/widgets/search_bar.dart';
-import 'package:shimmer/shimmer.dart';
-
-import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
 
 import '../../utils/home_page_logic.dart';
 import '../../models/recipe_model.dart';
@@ -89,6 +86,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     itemCount: 10,
                     itemBuilder: (context, index) {
+                      final recipe = recipeList.isNotEmpty
+                          ? recipeList[0].hits[index].recipe
+                          : null;
+                      final recipeId =
+                          recipe != null ? recipe.uri.split('#')[1] : null;
                       return RecipeCart(
                         lblText: recipeList.isNotEmpty
                             ? recipeList[0].hits[index].recipe.label
@@ -96,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                         lblImage: recipeList.isNotEmpty
                             ? recipeList[0].hits[index].recipe.image
                             : '',
+                        recipeID: recipeId ?? '',
                       );
                     },
                   ),

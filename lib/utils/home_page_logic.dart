@@ -11,6 +11,11 @@ class HomePageLogic {
       var response = await http.get(uri);
       var responseString = response.body;
       Map<String, dynamic> parsedJson = jsonDecode(responseString);
+      var hits = parsedJson['hits'];
+      var firstHit = hits[0];
+      var recipe = firstHit['recipe'];
+      var recipeId = recipe['uri'].split('#')[1];
+      print('Recipe ID===== $recipeId');
       List<Recipe> recipes = [Recipe.fromJson(parsedJson)];
       return recipes;
     } catch (e) {

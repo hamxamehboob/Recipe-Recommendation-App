@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class RecipeCart extends StatelessWidget {
+class RecipeCart extends StatefulWidget {
   final String lblText;
   final String lblImage;
-
+  final String recipeID;
   const RecipeCart({
     required this.lblText,
     required this.lblImage,
     Key? key,
+    required this.recipeID,
   }) : super(key: key);
 
+  @override
+  State<RecipeCart> createState() => _RecipeCartState();
+}
+
+class _RecipeCartState extends State<RecipeCart> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -36,19 +43,22 @@ class RecipeCart extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const InformationScreen(),
+                      builder: (_) => InformationScreen(
+                        recipeId: widget.recipeID,
+                      ),
                     ),
                   );
                 },
                 child: Stack(
                   children: [
-                    if (lblImage.isNotEmpty)
+                    if (widget.lblImage.isNotEmpty)
                       CircleAvatar(
                         maxRadius: size.height * .08,
-                        backgroundImage: NetworkImage(lblImage),
+                        backgroundImage:
+                            CachedNetworkImageProvider(widget.lblImage),
                         backgroundColor: Colors.transparent,
                       ),
-                    if (lblImage.isEmpty)
+                    if (widget.lblImage.isEmpty)
                       Shimmer.fromColors(
                         baseColor: Colors.grey[300]!,
                         highlightColor: Colors.grey[100]!,
@@ -64,7 +74,7 @@ class RecipeCart extends StatelessWidget {
                 height: size.height * .01,
               ),
               Text(
-                lblText,
+                widget.lblText,
                 textAlign: TextAlign.center,
                 softWrap: true,
                 maxLines: 2,
