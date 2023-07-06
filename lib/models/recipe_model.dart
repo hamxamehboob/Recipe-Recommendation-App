@@ -8,7 +8,7 @@ part 'recipe.g.dart';
 class Recipe {
   @JsonKey(name: 'q')
   final String query;
-  final List<all_recipies> hits;
+  final List<AllRecipies> hits;
 
   const Recipe({
     required this.query,

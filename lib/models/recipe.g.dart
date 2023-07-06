@@ -4,7 +4,7 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) {
   return Recipe(
     query: json['q'] as String,
     hits: (json['hits'] as List<dynamic>)
-        .map((e) => all_recipies.fromJson(e as Map<String, dynamic>))
+        .map((e) => AllRecipies.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

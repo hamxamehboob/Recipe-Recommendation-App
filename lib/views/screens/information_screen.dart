@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_recommendation_app/constants/assets.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
+import 'package:recipe_recommendation_app/views/widgets/ingredient_container.dart';
+
+import '../../models/recipe_model.dart';
 
 class InformationScreen extends StatefulWidget {
-  final String recipeId;
-  const InformationScreen({super.key, required this.recipeId});
+  final String recipeName;
+  final String recipeImage;
+  final String cusineName;
+  final String mealType;
+  final String dishType;
+  const InformationScreen({
+    super.key,
+    required this.recipeName,
+    required this.recipeImage,
+    required this.cusineName,
+    required this.mealType,
+    required this.dishType,
+  });
 
   @override
   State<InformationScreen> createState() => _InformationScreenState();
 }
 
 class _InformationScreenState extends State<InformationScreen> {
+  Recipe? recipeInfo;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -28,8 +42,8 @@ class _InformationScreenState extends State<InformationScreen> {
                       bottomLeft: Radius.circular(32.0),
                       bottomRight: Radius.circular(32.0),
                     ),
-                    child: Image.asset(
-                      homeScreenImage,
+                    child: Image.network(
+                      widget.recipeImage,
                       width: size.width,
                       fit: BoxFit.cover,
                     ),
@@ -67,15 +81,80 @@ class _InformationScreenState extends State<InformationScreen> {
                 padding: EdgeInsets.only(
                   left: size.width * .03,
                   top: size.height * .03,
+                  right: size.width * .03,
+                  bottom: size.height * .03,
                 ),
-                child: const Column(
-                  children: [
-                    Text(
-                      'Label from API',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Recipe Name:${widget.recipeName}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      Text(
+                        'Cuisine Name:${widget.cusineName.replaceAll('[', '').replaceAll(']', '')}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      Text(
+                        'Dish Type:${widget.dishType.replaceAll('[', '').replaceAll(']', '')}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      Text(
+                        'Meal Type:${widget.mealType.replaceAll('[', '').replaceAll(']', '')}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      const Text(
+                        'Ingredients',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const IngredientBox(),
+                      const IngredientBox(),
+                      const IngredientBox(),
+                      const IngredientBox(),
+                      const IngredientBox(),
+                      const IngredientBox(),
+                    ],
+                  ),
                 ),
               ),
             ],

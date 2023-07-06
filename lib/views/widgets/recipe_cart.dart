@@ -7,12 +7,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 class RecipeCart extends StatefulWidget {
   final String lblText;
   final String lblImage;
-  final String recipeID;
+  final String recipeName;
+  final String cusineName;
+  final String mealType;
+  final String dishType;
   const RecipeCart({
     required this.lblText,
     required this.lblImage,
     Key? key,
-    required this.recipeID,
+    required this.recipeName,
+    required this.cusineName,
+    required this.mealType,
+    required this.dishType,
   }) : super(key: key);
 
   @override
@@ -44,7 +50,11 @@ class _RecipeCartState extends State<RecipeCart> {
                     context,
                     MaterialPageRoute(
                       builder: (_) => InformationScreen(
-                        recipeId: widget.recipeID,
+                        recipeName: widget.recipeName,
+                        recipeImage: widget.lblImage,
+                        dishType: widget.dishType,
+                        cusineName: widget.cusineName,
+                        mealType: widget.mealType,
                       ),
                     ),
                   );

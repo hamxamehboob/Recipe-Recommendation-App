@@ -3,7 +3,7 @@ import 'package:recipe_recommendation_app/constants/assets.dart';
 
 import 'package:recipe_recommendation_app/views/widgets/search_bar.dart';
 
-import '../../utils/home_page_logic.dart';
+import '../../services/home_page_controller.dart';
 import '../../models/recipe_model.dart';
 import '../widgets/recipe_cart.dart';
 
@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Recipe> recipeList = [];
   bool isLoading = false;
-  final HomePageLogic _homePageLogic = HomePageLogic();
+  final HomePageController _homePageLogic = HomePageController();
 
   @override
   void initState() {
@@ -87,10 +87,19 @@ class _HomePageState extends State<HomePage> {
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       final recipe = recipeList.isNotEmpty
-                          ? recipeList[0].hits[index].recipe
+                          ? recipeList[0].hits[index].recipe.label
                           : null;
-                      final recipeId =
-                          recipe != null ? recipe.uri.split('#')[1] : null;
+                      final cusineName = recipeList.isNotEmpty
+                          ? recipeList[0].hits[index].recipe.cuisineType
+                          : null;
+                      final mealType = recipeList.isNotEmpty
+                          ? recipeList[0].hits[index].recipe.mealType
+                          : null;
+                      final dishType = recipeList.isNotEmpty
+                          ? recipeList[0].hits[index].recipe.dishType
+                          : null;
+                      final recipeName = recipe;
+
                       return RecipeCart(
                         lblText: recipeList.isNotEmpty
                             ? recipeList[0].hits[index].recipe.label
@@ -98,7 +107,10 @@ class _HomePageState extends State<HomePage> {
                         lblImage: recipeList.isNotEmpty
                             ? recipeList[0].hits[index].recipe.image
                             : '',
-                        recipeID: recipeId ?? '',
+                        recipeName: recipeName.toString(),
+                        dishType: dishType.toString(),
+                        cusineName: cusineName.toString(),
+                        mealType: mealType.toString(),
                       );
                     },
                   ),
