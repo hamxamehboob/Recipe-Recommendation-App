@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_recommendation_app/constants/extensions.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 import 'package:recipe_recommendation_app/views/widgets/ingredient_container.dart';
 
@@ -102,7 +103,7 @@ class _InformationScreenState extends State<InformationScreen> {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Cuisine Name:${widget.cusineName.replaceAll('[', '').replaceAll(']', '')}',
+                        'Cuisine Name:${widget.cusineName.replaceAll('[', '').replaceAll(']', '').capitilize()}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -115,7 +116,7 @@ class _InformationScreenState extends State<InformationScreen> {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Dish Type:${widget.dishType.replaceAll('[', '').replaceAll(']', '')}',
+                        'Dish Type:${widget.dishType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -128,7 +129,7 @@ class _InformationScreenState extends State<InformationScreen> {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Meal Type:${widget.mealType.replaceAll('[', '').replaceAll(']', '')}',
+                        'Meal Type:${widget.mealType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

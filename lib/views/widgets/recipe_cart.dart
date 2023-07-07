@@ -28,7 +28,7 @@ class RecipeCart extends StatefulWidget {
 class _RecipeCartState extends State<RecipeCart> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     return Column(
       children: [
         Container(
