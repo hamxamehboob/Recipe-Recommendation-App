@@ -3,14 +3,13 @@ import 'package:recipe_recommendation_app/constants/extensions.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 import 'package:recipe_recommendation_app/views/widgets/ingredient_container.dart';
 
-import '../../models/recipe_model.dart';
-
 class InformationScreen extends StatefulWidget {
   final String recipeName;
   final String recipeImage;
   final String cusineName;
   final String mealType;
   final String dishType;
+  final List<String> ingredientInfo;
   const InformationScreen({
     super.key,
     required this.recipeName,
@@ -18,6 +17,7 @@ class InformationScreen extends StatefulWidget {
     required this.cusineName,
     required this.mealType,
     required this.dishType,
+    required this.ingredientInfo,
   });
 
   @override
@@ -25,7 +25,6 @@ class InformationScreen extends StatefulWidget {
 }
 
 class _InformationScreenState extends State<InformationScreen> {
-  Recipe? recipeInfo;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -148,12 +147,18 @@ class _InformationScreenState extends State<InformationScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const IngredientBox(),
-                      const IngredientBox(),
-                      const IngredientBox(),
-                      const IngredientBox(),
-                      const IngredientBox(),
-                      const IngredientBox(),
+                      ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: widget.ingredientInfo.length,
+                        itemBuilder: (_, index) {
+                          final ingredientInfo = widget.ingredientInfo[index];
+                          return IngredientBox(
+                            ingredientInfo: ingredientInfo,
+                          );
+                        },
+                      )
                     ],
                   ),
                 ),

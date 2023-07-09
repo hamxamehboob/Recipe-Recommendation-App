@@ -6,6 +6,7 @@ class RecipeInfo {
   final String uri;
   final String label;
   String image;
+  List<String> ingredientLines;
   List<String> cuisineType;
   List<String> mealType;
   List<String> dishType;
@@ -14,6 +15,7 @@ class RecipeInfo {
     required this.uri,
     required this.label,
     required this.image,
+    required this.ingredientLines,
     required this.cuisineType,
     required this.mealType,
     required this.dishType,

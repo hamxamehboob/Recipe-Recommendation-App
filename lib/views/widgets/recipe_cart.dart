@@ -11,6 +11,7 @@ class RecipeCart extends StatefulWidget {
   final String cusineName;
   final String mealType;
   final String dishType;
+  final List<String> ingredientInfo;
   const RecipeCart({
     required this.lblText,
     required this.lblImage,
@@ -19,6 +20,7 @@ class RecipeCart extends StatefulWidget {
     required this.cusineName,
     required this.mealType,
     required this.dishType,
+    required this.ingredientInfo,
   }) : super(key: key);
 
   @override
@@ -55,6 +57,7 @@ class _RecipeCartState extends State<RecipeCart> {
                         dishType: widget.dishType,
                         cusineName: widget.cusineName,
                         mealType: widget.mealType,
+                        ingredientInfo: widget.ingredientInfo,
                       ),
                     ),
                   );

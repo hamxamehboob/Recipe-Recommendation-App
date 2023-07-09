@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   future: _recipeFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return LinearProgressIndicator();
+                      return const LinearProgressIndicator();
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else {
@@ -77,9 +77,9 @@ class _HomePageState extends State<HomePage> {
                             crossAxisCount: 2,
                             childAspectRatio: size.width / (size.height / 1.8),
                           ),
-                          itemCount: recipeList[0].hits.length,
+                          itemCount: 10,
                           itemBuilder: (context, index) {
-                            // final recipe = recipeList[0];
+                            final recipe = recipeList[0];
                             final recipeName =
                                 recipeList[0].hits[index].recipe.label;
                             final cusineName =
@@ -88,6 +88,10 @@ class _HomePageState extends State<HomePage> {
                                 recipeList[0].hits[index].recipe.mealType;
                             final dishType =
                                 recipeList[0].hits[index].recipe.dishType;
+                            final ingredient = recipeList[0]
+                                .hits[index]
+                                .recipe
+                                .ingredientLines;
 
                             return RecipeCart(
                               lblText: recipeName,
@@ -96,6 +100,7 @@ class _HomePageState extends State<HomePage> {
                               dishType: dishType.toString(),
                               cusineName: cusineName.toString(),
                               mealType: mealType.toString(),
+                              ingredientInfo: ingredient,
                             );
                           },
                         ),
