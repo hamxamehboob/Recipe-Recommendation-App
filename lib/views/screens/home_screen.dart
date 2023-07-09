@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_recommendation_app/constants/assets.dart';
+import 'package:recipe_recommendation_app/views/screens/all_recipies_screen.dart';
 import 'package:recipe_recommendation_app/views/widgets/search_bar.dart';
-import '../../services/home_page_controller.dart';
+import '../../controllers/home_page_controller.dart';
 import '../../models/recipe_model.dart';
 import '../widgets/recipe_cart.dart';
 
@@ -49,7 +50,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const AllRecipiesScreen(),
+                          ),
+                        );
+                      },
                       child: const Icon(
                         Icons.arrow_forward,
                         color: Color(0xFF868889),

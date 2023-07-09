@@ -150,12 +150,12 @@ class _InformationScreenState extends State<InformationScreen> {
                       ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: widget.ingredientInfo.length,
                         itemBuilder: (_, index) {
                           final ingredientInfo = widget.ingredientInfo[index];
                           return IngredientBox(
-                            ingredientInfo: ingredientInfo,
+                            ingredientInfo: ingredientInfo.capitilize(),
                           );
                         },
                       )
