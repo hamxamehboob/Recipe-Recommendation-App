@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_recommendation_app/constants/extensions.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
@@ -42,10 +43,10 @@ class _InformationScreenState extends State<InformationScreen> {
                       bottomLeft: Radius.circular(32.0),
                       bottomRight: Radius.circular(32.0),
                     ),
-                    child: Image.network(
-                      widget.recipeImage,
+                    child: CachedNetworkImage(
                       width: size.width,
                       fit: BoxFit.cover,
+                      imageUrl: widget.recipeImage,
                     ),
                   ),
                   Padding(

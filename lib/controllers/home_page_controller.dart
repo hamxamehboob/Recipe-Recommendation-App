@@ -5,16 +5,12 @@ import '../app_config/api_confiq.dart';
 import '../models/recipe_model.dart';
 
 class HomePageController {
-  Future<List<Recipe>> _getRecipe() async {
+  Future<List<Recipe>> _getRecipes(String url) async {
     try {
-      var uri = Uri.parse(APIConfig.url);
+      var uri = Uri.parse(url);
       var response = await http.get(uri);
       var responseString = response.body;
       Map<String, dynamic> parsedJson = jsonDecode(responseString);
-      // var hits = parsedJson['hits'];
-      // var firstHit = hits[0];
-      // var recipe = firstHit['recipe'];
-      // var recipeId = recipe['uri'].split('#')[1];
       List<Recipe> recipes = [Recipe.fromJson(parsedJson)];
       return recipes;
     } catch (e) {
@@ -23,6 +19,12 @@ class HomePageController {
   }
 
   Future<List<Recipe>> fetchRecipes() async {
-    return await _getRecipe();
+    return _getRecipes(APIConfig.url);
+  }
+
+  Future<List<Recipe>> searchRecipes(String query) async {
+    String url =
+        'https://api.edamam.com/search?q=$query&app_id=${APIConfig.appId}&app_key=${APIConfig.appKey}&to=20';
+    return _getRecipes(url);
   }
 }

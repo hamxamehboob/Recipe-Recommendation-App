@@ -7,13 +7,15 @@ import '../../models/recipe_model.dart';
 import 'package:http/http.dart' as http;
 
 class SearchingBar extends StatefulWidget {
-  const SearchingBar({super.key});
+  final void Function(String) onSearchSubmitted;
+  const SearchingBar({super.key, required this.onSearchSubmitted});
 
   @override
   State<SearchingBar> createState() => _SearchingBarState();
 }
 
 class _SearchingBarState extends State<SearchingBar> {
+  final TextEditingController _searchRecipe = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -28,12 +30,14 @@ class _SearchingBarState extends State<SearchingBar> {
           child: Padding(
             padding: EdgeInsets.only(top: size.height * .01),
             child: TextField(
-              // controller: _searchRecipe,
+              controller: _searchRecipe,
               style: const TextStyle(color: Colors.black, fontSize: 15),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 10),
                 prefixIcon: GestureDetector(
-                  // onTap: onPressed,
+                  onTap: () {
+                    widget.onSearchSubmitted(_searchRecipe.text);
+                  },
                   child: Icon(Icons.search, size: size.height * 0.04),
                 ),
                 hintText: 'Search Recipe....',
@@ -44,6 +48,9 @@ class _SearchingBarState extends State<SearchingBar> {
                 ),
                 border: InputBorder.none,
               ),
+              onSubmitted: (value) {
+                widget.onSearchSubmitted(value);
+              },
             ),
           ),
         ),

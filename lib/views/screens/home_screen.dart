@@ -23,6 +23,32 @@ class _HomePageState extends State<HomePage> {
     _recipeFuture = _homePageLogic.fetchRecipes();
   }
 
+  void _onSearchSubmitted(String query) {
+    setState(() {
+      _recipeFuture = _homePageLogic.searchRecipes(query);
+    });
+
+    _recipeFuture.catchError((error) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text('An error occurred: $error'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -34,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.all(size.height * 0.01),
             child: Column(
               children: [
-                const SearchingBar(),
+                SearchingBar(onSearchSubmitted: _onSearchSubmitted),
                 SizedBox(height: size.height * .01),
                 Image.asset(homeScreenImage),
                 SizedBox(height: size.height * .02),
@@ -72,9 +98,15 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const LinearProgressIndicator();
                     } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
+                      return Center(
+                        child: Text(
+                          'Error occurred: ${snapshot.error}',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      );
                     } else {
                       final recipeList = snapshot.data!;
+
                       return SizedBox(
                         height: size.height * 1.35,
                         child: GridView.builder(
@@ -85,9 +117,16 @@ class _HomePageState extends State<HomePage> {
                             crossAxisCount: 2,
                             childAspectRatio: size.width / (size.height / 1.8),
                           ),
-                          itemCount: 10,
+                          itemCount: recipeList[0].hits.length,
                           itemBuilder: (context, index) {
-                            final recipe = recipeList[0];
+                            //       if (recipeList.isEmpty) {
+                            //   return Center(
+                            //     child: Text(
+                            //       'No recipes found.',
+                            //       style: TextStyle(color: Colors.black),
+                            //     ),
+                            //   );
+                            // }
                             final recipeName =
                                 recipeList[0].hits[index].recipe.label;
                             final cusineName =
