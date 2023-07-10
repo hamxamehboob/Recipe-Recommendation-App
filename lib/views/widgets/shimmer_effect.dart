@@ -7,13 +7,17 @@ class RecipeCartShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Container(
-        height: size.height / 3.8,
-        width: size.width * .46,
-        color: const Color.fromARGB(255, 237, 236, 236),
+    return SizedBox(
+      height: size.height / 3.8,
+      width: size.width * .46,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          height: size.height / 3.8,
+          width: size.width * .46,
+          color: const Color.fromARGB(255, 237, 236, 236),
+        ),
       ),
     );
   }

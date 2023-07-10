@@ -34,18 +34,12 @@ class _RecipeCartState extends State<RecipeCart> {
     return Column(
       children: [
         Container(
+          padding: EdgeInsets.only(top: size.height * .02),
           height: size.height / 3.8,
-          width: size.width * .46,
+          width: size.width * .49,
           color: const Color.fromARGB(255, 237, 236, 236),
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 120, top: 10),
-                  child: Icon(Icons.favorite_border),
-                ),
-              ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -84,7 +78,7 @@ class _RecipeCartState extends State<RecipeCart> {
                 ),
               ),
               SizedBox(
-                height: size.height * .01,
+                height: size.height * .03,
               ),
               Text(
                 widget.lblText,

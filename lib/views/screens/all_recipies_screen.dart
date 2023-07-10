@@ -36,7 +36,6 @@ class _AllRecipiesScreenState extends State<AllRecipiesScreen> {
           child: Column(
             children: [
               SizedBox(height: size.height * .02),
-              SizedBox(height: size.height * .02),
               FutureBuilder<List<Recipe>>(
                 future: _recipeFuture,
                 builder: (context, snapshot) {
@@ -53,11 +52,10 @@ class _AllRecipiesScreenState extends State<AllRecipiesScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: size.width / (size.height / 1.8),
+                          childAspectRatio: size.width / (size.height / 1.85),
                         ),
                         itemCount: 20,
                         itemBuilder: (context, index) {
-                          // final recipe = recipeList[0];
                           final recipeName =
                               recipeList[0].hits[index].recipe.label;
                           final cusineName =
