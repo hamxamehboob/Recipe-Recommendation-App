@@ -5,6 +5,7 @@ import 'package:recipe_recommendation_app/views/widgets/search_bar.dart';
 import '../../controllers/home_page_controller.dart';
 import '../../models/recipe_model.dart';
 import '../widgets/recipe_cart.dart';
+import '../widgets/shimmer_effect.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -96,7 +97,21 @@ class _HomePageState extends State<HomePage> {
                   future: _recipeFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const LinearProgressIndicator();
+                      return SizedBox(
+                        height: size.height * 1.35,
+                        child: GridView.builder(
+                          shrinkWrap: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: size.width / (size.height / 1.8),
+                          ),
+                          itemBuilder: (context, index) {
+                            return RecipeCartShimmer();
+                          },
+                        ),
+                      );
                     } else if (snapshot.hasError) {
                       return Center(
                         child: Text(
@@ -119,14 +134,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: recipeList[0].hits.length,
                           itemBuilder: (context, index) {
-                            //       if (recipeList.isEmpty) {
-                            //   return Center(
-                            //     child: Text(
-                            //       'No recipes found.',
-                            //       style: TextStyle(color: Colors.black),
-                            //     ),
-                            //   );
-                            // }
+                            if (recipeList.isEmpty ||
+                                index >= recipeList[0].hits.length) {
+                              return Container();
+                            }
                             final recipeName =
                                 recipeList[0].hits[index].recipe.label;
                             final cusineName =
