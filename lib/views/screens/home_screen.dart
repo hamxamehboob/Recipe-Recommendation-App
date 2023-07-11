@@ -5,12 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:recipe_recommendation_app/constants/assets.dart';
-import 'package:recipe_recommendation_app/views/screens/all_recipies_screen.dart';
+import 'package:recipe_recommendation_app/controllers/home_page_controller.dart';
+import 'package:recipe_recommendation_app/models/recipe_model.dart';
+import 'package:recipe_recommendation_app/views/shared_components/recipe_cart.dart';
 import 'package:recipe_recommendation_app/views/shared_components/search_bar.dart';
-import '../../controllers/home_page_controller.dart';
-import '../../models/recipe_model.dart';
-import '../shared_components/recipe_cart.dart';
-import '../shared_components/shimmer_effect.dart';
+import 'package:recipe_recommendation_app/views/shared_components/shimmer_effect.dart';
+
+import '../shared_components/dialog_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,8 +25,6 @@ class _HomePageState extends State<HomePage> {
   final HomePageController _homePageLogic = HomePageController();
   bool _showAllRecipes = true;
   late StreamSubscription subscription;
-  var isDeviceConnected = false;
-  bool isAlertSet = false;
 
   @override
   void initState() {
@@ -53,23 +52,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getConnectivity() async {
-    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
     setState(() {});
 
-    if (!isDeviceConnected && isAlertSet == false) {
-      showDialogBox();
-      setState(() => isAlertSet = true);
+    if (!isDeviceConnected) {
+      showInternetConnectionDialog(context);
     }
 
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) async {
-      isDeviceConnected = await InternetConnectionChecker().hasConnection;
-      if (!isDeviceConnected && isAlertSet == false) {
-        showDialogBox();
-        setState(() => isAlertSet = true);
-      } else if (isDeviceConnected && isAlertSet == true) {
-        setState(() => isAlertSet = false);
+      bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
+      if (!isDeviceConnected) {
+        showInternetConnectionDialog(context);
+      } else {
+        setState(() {
+          _fetchRecipes();
+        });
       }
     });
   }
@@ -88,6 +87,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchingBar(onSearchSubmitted: _onSearchSubmitted),
               SizedBox(height: size.height * .01),
@@ -95,32 +95,13 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: size.height * .02),
               Padding(
                 padding: EdgeInsets.only(left: size.width * .01),
-                child: Row(
-                  children: [
-                    const Text(
-                      'Featured Recipes',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const AllRecipiesScreen(),
-                          ),
-                        );
-                      },
-                      child: const Icon(
-                        Icons.arrow_forward,
-                        color: Color(0xFF868889),
-                      ),
-                    ),
-                  ],
+                child: const Text(
+                  'Featured Recipes',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               SizedBox(height: size.height * .02),
@@ -198,31 +179,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  void showDialogBox() {
-    showCupertinoDialog<String>(
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: const Text('No Internet Connection'),
-        content: const Text('Please Check Your Internet Connection'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () async {
-              Navigator.pop(context, 'Cancel');
-              setState(() => isAlertSet = false);
-              isDeviceConnected =
-                  await InternetConnectionChecker().hasConnection;
-              if (!isDeviceConnected) {
-                showDialogBox();
-                setState(() => isAlertSet = true);
-              }
-            },
-            child: const Text('OK'),
-          )
-        ],
       ),
     );
   }
