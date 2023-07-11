@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_recommendation_app/constants/extensions.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
-import 'package:recipe_recommendation_app/views/widgets/ingredient_container.dart';
+import 'package:recipe_recommendation_app/views/shared_components/ingredient_container.dart';
 
 class InformationScreen extends StatefulWidget {
   final String recipeName;

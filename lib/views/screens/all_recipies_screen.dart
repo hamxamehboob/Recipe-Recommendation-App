@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../controllers/home_page_controller.dart';
 import '../../models/recipe_model.dart';
-import '../widgets/recipe_cart.dart';
+import '../shared_components/recipe_cart.dart';
 
 class AllRecipiesScreen extends StatefulWidget {
   const AllRecipiesScreen({super.key});
@@ -40,7 +40,9 @@ class _AllRecipiesScreenState extends State<AllRecipiesScreen> {
                 future: _recipeFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const LinearProgressIndicator();
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {

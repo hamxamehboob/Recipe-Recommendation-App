@@ -11,8 +11,8 @@ class RecipeCartShimmer extends StatelessWidget {
       height: size.height / 3.8,
       width: size.width * .46,
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
+        baseColor: const Color.fromRGBO(224, 224, 224, 1),
+        highlightColor: const Color.fromRGBO(245, 245, 245, 1),
         child: Container(
           height: size.height / 3.8,
           width: size.width * .46,
