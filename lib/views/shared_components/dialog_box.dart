@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -6,6 +5,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 Future<void> showInternetConnectionDialog(BuildContext context) async {
   bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
   if (!isDeviceConnected) {
+    // ignore: use_build_context_synchronously
     return showDialogBox(context);
   }
 }
@@ -23,6 +23,7 @@ void showDialogBox(BuildContext context) {
             bool isDeviceConnected =
                 await InternetConnectionChecker().hasConnection;
             if (!isDeviceConnected) {
+              // ignore: use_build_context_synchronously
               showDialogBox(context);
             }
           },

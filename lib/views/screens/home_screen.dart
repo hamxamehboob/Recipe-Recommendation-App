@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:recipe_recommendation_app/constants/assets.dart';
@@ -56,6 +55,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
 
     if (!isDeviceConnected) {
+      // ignore: use_build_context_synchronously
       showInternetConnectionDialog(context);
     }
 
@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
         .listen((ConnectivityResult result) async {
       bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
       if (!isDeviceConnected) {
+        // ignore: use_build_context_synchronously
         showInternetConnectionDialog(context);
       } else {
         setState(() {
@@ -144,27 +145,17 @@ class _HomePageState extends State<HomePage> {
                         itemCount:
                             _showAllRecipes ? 10 : recipeList[0].hits.length,
                         itemBuilder: (context, index) {
-                          if (recipeList.isEmpty ||
-                              index >= recipeList[0].hits.length) {
-                            return Container();
-                          }
-                          final recipeName =
-                              recipeList[0].hits[index].recipe.label;
-                          final cusineName =
-                              recipeList[0].hits[index].recipe.cuisineType;
-                          final mealType =
-                              recipeList[0].hits[index].recipe.mealType;
-                          final dishType =
-                              recipeList[0].hits[index].recipe.dishType;
-                          final ingredient =
-                              recipeList[0].hits[index].recipe.ingredientLines;
+                          final recipe = recipeList[0].hits[index].recipe;
+                          final recipeName = recipe.label;
+                          final cusineName = recipe.cuisineType;
+                          final mealType = recipe.mealType;
+                          final dishType = recipe.dishType;
+                          final ingredient = recipe.ingredientLines;
 
                           return RecipeCart(
                             lblText: recipeName,
-                            lblImage: _showAllRecipes
-                                ? recipeList[0].hits[index].recipe.image
-                                : recipeList[0].hits[index].recipe.image,
-                            recipeName: recipeName.toString(),
+                            lblImage:
+                                _showAllRecipes ? recipe.image : recipe.image,
                             dishType: dishType.toString(),
                             cusineName: cusineName.toString(),
                             mealType: mealType.toString(),

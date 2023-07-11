@@ -7,7 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 class RecipeCart extends StatefulWidget {
   final String lblText;
   final String lblImage;
-  final String recipeName;
+
   final String cusineName;
   final String mealType;
   final String dishType;
@@ -16,7 +16,6 @@ class RecipeCart extends StatefulWidget {
     required this.lblText,
     required this.lblImage,
     Key? key,
-    required this.recipeName,
     required this.cusineName,
     required this.mealType,
     required this.dishType,
@@ -46,7 +45,7 @@ class _RecipeCartState extends State<RecipeCart> {
                     context,
                     MaterialPageRoute(
                       builder: (_) => InformationScreen(
-                        recipeName: widget.recipeName,
+                        recipeName: widget.lblText,
                         recipeImage: widget.lblImage,
                         dishType: widget.dishType,
                         cusineName: widget.cusineName,
