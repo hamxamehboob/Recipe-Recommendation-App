@@ -6,7 +6,7 @@ class RecipeCartShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     return SizedBox(
       height: size.height / 3.8,
       width: size.width * .46,

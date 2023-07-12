@@ -20,10 +20,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Recipe>> _recipeFuture;
   final HomePageController _homePageLogic = HomePageController();
+
+  late Future<List<Recipe>> _recipeFuture;
+  late StreamSubscription _subscription;
+
   bool _showAllRecipes = true;
-  late StreamSubscription subscription;
 
   @override
   void initState() {
@@ -32,14 +34,14 @@ class _HomePageState extends State<HomePage> {
     _getConnectivity();
   }
 
-  void _fetchRecipes() {
+  _fetchRecipes() {
     setState(() {
       _showAllRecipes = true;
       _recipeFuture = _homePageLogic.fetchRecipes();
     });
   }
 
-  void _onSearchSubmitted(String query) {
+  _onSearchSubmitted(String query) {
     if (query.isNotEmpty) {
       setState(() {
         _showAllRecipes = false;
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       showInternetConnectionDialog(context);
     }
 
-    subscription = Connectivity()
+    _subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) async {
       bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    subscription.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 
@@ -132,7 +134,15 @@ class _HomePageState extends State<HomePage> {
                     );
                   } else {
                     final recipeList = snapshot.data!;
-
+                    if (recipeList.isEmpty || recipeList[0].hits.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'No Recipe Found',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      );
+                    }
                     return SizedBox(
                       height: size.height * 1.33,
                       child: GridView.builder(
@@ -166,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
                 },
-              ),
+              )
             ],
           ),
         ),

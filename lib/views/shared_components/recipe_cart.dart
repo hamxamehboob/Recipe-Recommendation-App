@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -63,15 +62,6 @@ class _RecipeCartState extends State<RecipeCart> {
                         backgroundImage:
                             CachedNetworkImageProvider(widget.lblImage),
                         backgroundColor: Colors.transparent,
-                      ),
-                    if (widget.lblImage.isEmpty)
-                      Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: CircleAvatar(
-                          maxRadius: size.height * .08,
-                          backgroundColor: Colors.grey[300],
-                        ),
                       ),
                   ],
                 ),
