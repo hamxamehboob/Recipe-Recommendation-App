@@ -89,95 +89,106 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchingBar(onSearchSubmitted: _onSearchSubmitted),
-              SizedBox(height: size.height * .01),
-              Image.asset(homeScreenImage),
-              SizedBox(height: size.height * .02),
-              Padding(
-                padding: EdgeInsets.only(left: size.width * .01),
-                child: const Text(
-                  'Featured Recipes',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: size.height * .02,
+              left: size.width * .03,
+              right: size.width * .04,
+              bottom: size.height * .01,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SearchingBar(onSearchSubmitted: _onSearchSubmitted),
+                SizedBox(height: size.height * .01),
+                Image.asset(homeScreenImage),
+                SizedBox(height: size.height * .02),
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * .01),
+                  child: const Text(
+                    'Featured Recipes',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: size.height * .02),
-              FutureBuilder<List<Recipe>>(
-                future: _recipeFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SizedBox(
-                      height: size.height * 1.37,
-                      child: GridView.builder(
-                        shrinkWrap: false,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: size.width / (size.height / 1.87),
-                        ),
-                        itemBuilder: (context, index) {
-                          return const RecipeCartShimmer();
-                        },
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        'Error occurred: ${snapshot.error}',
-                      ),
-                    );
-                  } else {
-                    final recipeList = snapshot.data!;
-                    if (recipeList.isEmpty || recipeList[0].hits.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          'No Recipe Found',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                SizedBox(height: size.height * .02),
+                FutureBuilder<List<Recipe>>(
+                  future: _recipeFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text(
+                            'Error occurred: ${snapshot.error}',
+                          ),
+                        );
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            'No Recipe Found',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        );
+                      } else {
+                        final recipeList = snapshot.data!;
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: size.width / (size.height / 1.82),
+                          ),
+                          itemCount: _showAllRecipes
+                              ? recipeList[0].hits.length
+                              : recipeList[0].hits.length,
+                          itemBuilder: (context, index) {
+                            final recipe = recipeList[0].hits[index].recipe;
+                            final recipeName = recipe.label;
+                            final cusineName = recipe.cuisineType;
+                            final mealType = recipe.mealType;
+                            final dishType = recipe.dishType;
+                            final ingredient = recipe.ingredientLines;
+
+                            return RecipeCard(
+                              lblText: recipeName,
+                              lblImage:
+                                  _showAllRecipes ? recipe.image : recipe.image,
+                              dishType: dishType.toString(),
+                              cusineName: cusineName.toString(),
+                              mealType: mealType.toString(),
+                              ingredientInfo: ingredient,
+                            );
+                          },
+                        );
+                      }
+                    } else {
+                      return SizedBox(
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: size.width / (size.height / 1.87),
+                          ),
+                          itemCount: 8,
+                          itemBuilder: (context, index) {
+                            return RecipeCardShimmer();
+                          },
                         ),
                       );
                     }
-                    return SizedBox(
-                      height: size.height * 1.33,
-                      child: GridView.builder(
-                        shrinkWrap: false,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: size.width / (size.height / 1.87),
-                        ),
-                        itemCount:
-                            _showAllRecipes ? 10 : recipeList[0].hits.length,
-                        itemBuilder: (context, index) {
-                          final recipe = recipeList[0].hits[index].recipe;
-                          final recipeName = recipe.label;
-                          final cusineName = recipe.cuisineType;
-                          final mealType = recipe.mealType;
-                          final dishType = recipe.dishType;
-                          final ingredient = recipe.ingredientLines;
-
-                          return RecipeCart(
-                            lblText: recipeName,
-                            lblImage:
-                                _showAllRecipes ? recipe.image : recipe.image,
-                            dishType: dishType.toString(),
-                            cusineName: cusineName.toString(),
-                            mealType: mealType.toString(),
-                            ingredientInfo: ingredient,
-                          );
-                        },
-                      ),
-                    );
-                  }
-                },
-              )
-            ],
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

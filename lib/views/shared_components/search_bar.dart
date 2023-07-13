@@ -15,9 +15,9 @@ class _SearchingBarState extends State<SearchingBar> {
     final size = MediaQuery.sizeOf(context);
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF4F5F9),
+        color: const Color.fromARGB(255, 230, 231, 235),
         border: Border.all(color: const Color(0xFFF4F5F9)),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(3),
       ),
       child: Padding(
         padding: EdgeInsets.only(top: size.height * .01),
@@ -30,7 +30,11 @@ class _SearchingBarState extends State<SearchingBar> {
               onTap: () {
                 widget.onSearchSubmitted(_searchRecipe.text);
               },
-              child: Icon(Icons.search, size: size.height * 0.04),
+              child: Icon(
+                Icons.search,
+                size: size.height * 0.04,
+                color: Colors.green,
+              ),
             ),
             hintText: 'Search Recipe....',
             hintStyle: const TextStyle(
@@ -40,7 +44,7 @@ class _SearchingBarState extends State<SearchingBar> {
             ),
             border: InputBorder.none,
           ),
-          onSubmitted: (value) {
+          onChanged: (value) {
             widget.onSearchSubmitted(value);
           },
         ),

@@ -25,7 +25,7 @@ class HomePageController {
 
   Future<List<Recipe>> searchRecipes(String query) async {
     String url =
-        'https://api.edamam.com/search?q=$query&app_id=${APIConfig.appId}&app_key=${APIConfig.appKey}&to=20';
+        'https://api.edamam.com/search?q=$query&app_id=${APIConfig.appId}&app_key=${APIConfig.appKey}&to=10';
     return _getRecipes(url);
   }
 }

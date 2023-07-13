@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_recommendation_app/views/screens/information_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class RecipeCart extends StatefulWidget {
+class RecipeCard extends StatefulWidget {
   final String lblText;
   final String lblImage;
 
@@ -11,7 +11,7 @@ class RecipeCart extends StatefulWidget {
   final String mealType;
   final String dishType;
   final List<String> ingredientInfo;
-  const RecipeCart({
+  const RecipeCard({
     required this.lblText,
     required this.lblImage,
     Key? key,
@@ -22,19 +22,19 @@ class RecipeCart extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<RecipeCart> createState() => _RecipeCartState();
+  State<RecipeCard> createState() => _RecipeCardState();
 }
 
-class _RecipeCartState extends State<RecipeCart> {
+class _RecipeCardState extends State<RecipeCard> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(top: size.height * .02),
-          height: size.height / 3.8,
-          width: size.width * .49,
+          padding: EdgeInsets.only(top: size.height * .01),
+          height: size.height / 4,
+          width: size.width * .45,
           color: const Color.fromARGB(255, 237, 236, 236),
           child: Column(
             children: [
