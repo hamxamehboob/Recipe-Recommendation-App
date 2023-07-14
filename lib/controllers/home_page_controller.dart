@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config/api_confiq.dart';
@@ -29,6 +28,3 @@ class HomePageController {
     return _getRecipes(url);
   }
 }
-
-final homePageProvider =
-    Provider<HomePageController>((ref) => HomePageController());
