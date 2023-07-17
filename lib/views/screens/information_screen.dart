@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_recommendation_app/constants/extensions.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 import 'package:recipe_recommendation_app/views/shared_components/ingredient_container.dart';
 
-class InformationScreen extends StatefulWidget {
+class InformationScreen extends ConsumerWidget {
   final String recipeName;
   final String recipeImage;
   final String cusineName;
@@ -22,12 +23,7 @@ class InformationScreen extends StatefulWidget {
   });
 
   @override
-  State<InformationScreen> createState() => _InformationScreenState();
-}
-
-class _InformationScreenState extends State<InformationScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.sizeOf(context);
 
     return Scaffold(
@@ -46,7 +42,7 @@ class _InformationScreenState extends State<InformationScreen> {
                     child: CachedNetworkImage(
                       width: size.width,
                       fit: BoxFit.cover,
-                      imageUrl: widget.recipeImage,
+                      imageUrl: recipeImage,
                     ),
                   ),
                   Padding(
@@ -90,7 +86,7 @@ class _InformationScreenState extends State<InformationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Recipe Name:${widget.recipeName}',
+                        'Recipe Name:$recipeName',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -103,7 +99,7 @@ class _InformationScreenState extends State<InformationScreen> {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Cuisine Name:${widget.cusineName.replaceAll('[', '').replaceAll(']', '').capitilize()}',
+                        'Cuisine Name:${cusineName.replaceAll('[', '').replaceAll(']', '').capitilize()}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -116,7 +112,7 @@ class _InformationScreenState extends State<InformationScreen> {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Dish Type:${widget.dishType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
+                        'Dish Type:${dishType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -129,7 +125,7 @@ class _InformationScreenState extends State<InformationScreen> {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Meal Type:${widget.mealType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
+                        'Meal Type:${mealType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -152,11 +148,11 @@ class _InformationScreenState extends State<InformationScreen> {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.ingredientInfo.length,
+                        itemCount: ingredientInfo.length,
                         itemBuilder: (_, index) {
-                          final ingredientInfo = widget.ingredientInfo[index];
+                          final ingredient = ingredientInfo[index];
                           return IngredientBox(
-                            ingredientInfo: ingredientInfo.capitilize(),
+                            ingredientInfo: ingredient.capitilize(),
                           );
                         },
                       )

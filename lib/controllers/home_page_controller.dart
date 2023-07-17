@@ -10,8 +10,10 @@ class HomePageController {
       var uri = Uri.parse(url);
       var response = await http.get(uri);
       var responseString = response.body;
+
       Map<String, dynamic> parsedJson = jsonDecode(responseString);
       List<Recipe> recipes = [Recipe.fromJson(parsedJson)];
+
       return recipes;
     } catch (e) {
       return [];

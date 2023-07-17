@@ -12,7 +12,7 @@ class IngredientBox extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: size.height * .03),
       width: size.width * 1,
-      height: size.height * .07,
+      height: size.height * .08,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.green, width: 3),
         color: Colors.white,
@@ -21,8 +21,11 @@ class IngredientBox extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            width: size.width * .01,
+          ),
           Container(
-            height: size.height * .1,
+            height: size.height * .08,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.green,

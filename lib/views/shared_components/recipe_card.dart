@@ -67,18 +67,22 @@ class _RecipeCardState extends State<RecipeCard> {
                 ),
               ),
               SizedBox(
-                height: size.height * .03,
+                height: size.height * .02,
               ),
-              Text(
-                widget.lblText,
-                textAlign: TextAlign.center,
-                softWrap: true,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 12, 13, 12),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
+              Padding(
+                padding: EdgeInsets.only(
+                    left: size.width * .04, right: size.width * .04),
+                child: Text(
+                  widget.lblText,
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 12, 13, 12),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],

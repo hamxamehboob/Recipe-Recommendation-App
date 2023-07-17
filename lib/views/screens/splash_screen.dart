@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 
 import '../../constants/assets.dart';
+import '../theme/theme.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -11,24 +12,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  ThemeData myTheme = theme();
+
   @override
   void initState() {
     super.initState();
 
-    _navigateToHome();
+    //   // _navigateToHome();
   }
 
-  Future<void> _navigateToHome() async {
-    await Future.delayed(
-      const Duration(seconds: 5),
-    ).then(
-      (value) => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => const HomePage(),
-        ),
-      ),
-    );
-  }
+  // // Future<void> _navigateToHome() async {
+  // //   await Future.delayed(
+  // //     const Duration(seconds: 5),
+  // //   ).then(
+  // //     (value) => Navigator.of(context).pushReplacement(
+  // //       MaterialPageRoute(
+  // //         builder: (_) => const HomePage(),
+  // //       ),
+  // //     ),
+  // //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +60,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   right: 110,
                 ),
               ),
-              const Text(
+              Text(
                 'Welcome to',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  letterSpacing: 0.03,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: myTheme.textTheme.titleLarge,
               ),
               Container(
                 height: size.height * 0.1,
@@ -77,16 +75,11 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(height: size.height * 0.017),
               Container(
                 padding: const EdgeInsets.only(right: 47, left: 47),
-                child: const Align(
+                child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Discover a world of delicious recipes with our Recipe Recommendation app. Explore a wide range of dishes and easily search for recipes that suit your taste buds. Cooking has never been more enjoyable and accessible!',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 75, 75, 75),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 1,
-                    ),
+                    splashScreenText,
+                    style: myTheme.textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -94,25 +87,12 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(
                 height: size.height * 0.3,
               ),
-              const Text(
-                'POWERED BY',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 15,
-                  letterSpacing: 3,
-                  fontWeight: FontWeight.w500,
-                ),
+              Text(
+                'Developed by',
+                style: myTheme.textTheme.titleMedium,
               ),
               SizedBox(height: size.height * 0.01),
-              const Text(
-                'Hamza Mehboob',
-                style: TextStyle(
-                  color: Color(0xFF6CC51D),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20,
-                  letterSpacing: 3,
-                ),
-              ),
+              Text('Hamza Mehboob', style: myTheme.textTheme.titleSmall),
             ],
           ),
         ],

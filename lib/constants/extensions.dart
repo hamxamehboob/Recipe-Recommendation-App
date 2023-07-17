@@ -3,7 +3,3 @@ extension Capitialize on String {
     return this[0].toUpperCase() + substring(1);
   }
 }
-
-// extension OnContext on BuildContext {
-//   Size get sizeOf => MediaQuery.sizeOf(this);
-// }

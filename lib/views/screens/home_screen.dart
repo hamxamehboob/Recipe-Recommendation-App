@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:recipe_recommendation_app/views/shared_components/shimmer_effect.dart';
 import '../../constants/assets.dart';
 import '../../providers/recipies_provider.dart';
 import '../../providers/search_recipe_provider.dart';
-import '../shared_components/recipe_cart.dart';
+import '../shared_components/recipe_card.dart';
 import '../shared_components/search_bar.dart';
 
 class HomePage extends ConsumerWidget {
@@ -59,37 +60,66 @@ class HomePage extends ConsumerWidget {
                 SizedBox(height: size.height * .01),
                 searchRecipeKeywords.isNotEmpty
                     ? searchScreenProvider.when(
-                        data: (listOfRecipe) => GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: size.width / (size.height / 1.82),
-                          ),
-                          itemCount: listOfRecipe[0].hits.length,
-                          itemBuilder: (context, index) {
-                            final recipe = listOfRecipe[0].hits[index].recipe;
-                            final recipeName = recipe.label;
-                            final cuisineName = recipe.cuisineType;
-                            final mealType = recipe.mealType;
-                            final dishType = recipe.dishType;
-                            final ingredient = recipe.ingredientLines;
-                            final recipeImage = recipe.image;
-
-                            return RecipeCard(
-                              lblText: recipeName,
-                              lblImage: recipeImage,
-                              dishType: dishType.toString(),
-                              mealType: mealType.toString(),
-                              ingredientInfo: ingredient,
-                              cusineName: cuisineName.toString(),
+                        data: (listOfRecipe) {
+                          if (listOfRecipe.isEmpty ||
+                              listOfRecipe[0].hits.isEmpty) {
+                            return Center(
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: size.height * .1,
+                                    color: Colors.green,
+                                  ),
+                                  SizedBox(
+                                    height: size.height * .02,
+                                  ),
+                                  const Text(
+                                    'No Recipe Found😔',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                          } else {
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio:
+                                    size.width / (size.height / 1.82),
+                              ),
+                              itemCount: listOfRecipe[0].hits.length,
+                              itemBuilder: (context, index) {
+                                final recipe =
+                                    listOfRecipe[0].hits[index].recipe;
+                                final recipeName = recipe.label;
+                                final cuisineName = recipe.cuisineType;
+                                final mealType = recipe.mealType;
+                                final dishType = recipe.dishType;
+                                final ingredient = recipe.ingredientLines;
+                                final recipeImage = recipe.image;
+
+                                return RecipeCard(
+                                  lblText: recipeName,
+                                  lblImage: recipeImage,
+                                  dishType: dishType.toString(),
+                                  mealType: mealType.toString(),
+                                  ingredientInfo: ingredient,
+                                  cusineName: cuisineName.toString(),
+                                );
+                              },
+                            );
+                          }
+                        },
                         error: (e, _) => const Text('ERROR'),
                         loading: () =>
-                            Center(child: const CircularProgressIndicator()),
+                            const Center(child: CircularProgressIndicator()),
                       )
                     : recipeScreenProvider.when(
                         data: (listOfRecipe) => GridView.builder(
@@ -137,7 +167,7 @@ class HomePage extends ConsumerWidget {
                             },
                           ),
                         ),
-                      ),
+                      )
               ],
             ),
           ),
@@ -146,26 +176,3 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
-// _getConnectivity() async {
-  //   bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
-  //   setState(() {});
-
-  //   if (!isDeviceConnected) {
-  //     // ignore: use_build_context_synchronously
-  //     showInternetConnectionDialog(context);
-  //   }
-
-  //   _subscription = Connectivity()
-  //       .onConnectivityChanged
-  //       .listen((ConnectivityResult result) async {
-  //     bool isDeviceConnected = await InternetConnectionChecker().hasConnection;
-  //     if (!isDeviceConnected) {
-  //       // ignore: use_build_context_synchronously
-  //       showInternetConnectionDialog(context);
-  //     } else {
-  //       setState(() {
-  //         _fetchRecipes();
-  //       });
-  //     }
-  //   });
-  // }
