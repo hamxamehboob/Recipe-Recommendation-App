@@ -5,7 +5,7 @@ import '../theme/theme.dart';
 class SearchingBar extends StatelessWidget {
   final void Function(String) onSearchSubmitted;
   SearchingBar({super.key, required this.onSearchSubmitted});
-  ThemeData myTheme = theme();
+  final ThemeData myTheme = theme();
   final TextEditingController _searchRecipe = TextEditingController();
 
   @override

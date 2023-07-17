@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primary = Color(0xFF6CC51D);
+  static const Color white = Color.fromARGB(255, 230, 231, 235);
 }
 
 ThemeData theme() {

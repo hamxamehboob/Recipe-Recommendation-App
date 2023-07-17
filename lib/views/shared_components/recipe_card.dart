@@ -71,7 +71,9 @@ class _RecipeCardState extends State<RecipeCard> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    left: size.width * .04, right: size.width * .04),
+                  left: size.width * .04,
+                  right: size.width * .04,
+                ),
                 child: Text(
                   widget.lblText,
                   textAlign: TextAlign.center,

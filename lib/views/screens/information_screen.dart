@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_recommendation_app/constants/extensions.dart';
 import 'package:recipe_recommendation_app/views/screens/home_screen.dart';
 import 'package:recipe_recommendation_app/views/shared_components/ingredient_container.dart';
+import 'package:recipe_recommendation_app/views/theme/theme.dart';
 
 class InformationScreen extends ConsumerWidget {
   final String recipeName;
@@ -25,6 +26,7 @@ class InformationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.sizeOf(context);
+    ThemeData myTheme = theme();
 
     return Scaffold(
       body: SafeArea(
@@ -62,12 +64,12 @@ class InformationScreen extends ConsumerWidget {
                       child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white,
+                          color: AppColors.primary,
                         ),
                         child: Icon(
                           Icons.arrow_back_rounded,
                           size: size.height * .05,
-                          color: Colors.black,
+                          color: AppColors.white,
                         ),
                       ),
                     ),
@@ -85,12 +87,121 @@ class InformationScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Recipe Name:$recipeName',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Recipe Name:',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * .02,
+                          ),
+                          Expanded(
+                            child: Text(
+                              recipeName,
+                              softWrap: true,
+                              textAlign: TextAlign.start,
+                              style: myTheme.textTheme.displayLarge,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Cuisine Name:',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * .02,
+                          ),
+                          Expanded(
+                            child: Text(
+                              cusineName
+                                  .replaceAll('[', '')
+                                  .replaceAll(']', '')
+                                  .capitilize(),
+                              softWrap: true,
+                              textAlign: TextAlign.start,
+                              style: myTheme.textTheme.displayLarge,
+                            ),
+                          )
+                        ],
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Dish Type:',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * .02,
+                          ),
+                          Expanded(
+                            child: Text(
+                              dishType
+                                  .replaceAll('[', '')
+                                  .replaceAll(']', '')
+                                  .capitilize(),
+                              softWrap: true,
+                              textAlign: TextAlign.start,
+                              style: myTheme.textTheme.displayLarge,
+                            ),
+                          )
+                        ],
+                      ),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      SizedBox(
+                        height: size.height * .01,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Meal Type:',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * .02,
+                          ),
+                          Expanded(
+                            child: Text(
+                              mealType
+                                  .replaceAll('[', '')
+                                  .replaceAll(']', '')
+                                  .capitilize(),
+                              softWrap: true,
+                              textAlign: TextAlign.start,
+                              style: myTheme.textTheme.displayLarge,
+                            ),
+                          )
+                        ],
                       ),
                       const Divider(
                         thickness: 2,
@@ -99,50 +210,8 @@ class InformationScreen extends ConsumerWidget {
                         height: size.height * .01,
                       ),
                       Text(
-                        'Cuisine Name:${cusineName.replaceAll('[', '').replaceAll(']', '').capitilize()}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      SizedBox(
-                        height: size.height * .01,
-                      ),
-                      Text(
-                        'Dish Type:${dishType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      SizedBox(
-                        height: size.height * .01,
-                      ),
-                      Text(
-                        'Meal Type:${mealType.replaceAll('[', '').replaceAll(']', '').capitilize()}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      SizedBox(
-                        height: size.height * .01,
-                      ),
-                      const Text(
-                        'Ingredients',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        'Ingredients :',
+                        style: myTheme.textTheme.titleSmall,
                       ),
                       ListView.builder(
                         scrollDirection: Axis.vertical,
