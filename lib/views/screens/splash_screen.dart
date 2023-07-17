@@ -18,20 +18,20 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    //   // _navigateToHome();
+    _navigateToHome();
   }
 
-  // // Future<void> _navigateToHome() async {
-  // //   await Future.delayed(
-  // //     const Duration(seconds: 5),
-  // //   ).then(
-  // //     (value) => Navigator.of(context).pushReplacement(
-  // //       MaterialPageRoute(
-  // //         builder: (_) => const HomePage(),
-  // //       ),
-  // //     ),
-  // //   );
-  // }
+  Future<void> _navigateToHome() async {
+    await Future.delayed(
+      const Duration(seconds: 5),
+    ).then(
+      (value) => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => const HomePage(),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

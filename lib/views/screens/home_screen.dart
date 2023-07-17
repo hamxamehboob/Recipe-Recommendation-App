@@ -7,6 +7,7 @@ import '../../providers/recipies_provider.dart';
 import '../../providers/search_recipe_provider.dart';
 import '../shared_components/recipe_card.dart';
 import '../shared_components/search_bar.dart';
+import '../theme/theme.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -14,7 +15,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-
+    ThemeData myTheme = theme();
     final recipeScreenProvider = ref.watch(recipesProvider);
     final searchScreenProvider = ref.watch(
       searchRecipesProvider(
@@ -48,14 +49,8 @@ class HomePage extends ConsumerWidget {
                 SizedBox(height: size.height * .02),
                 Padding(
                   padding: EdgeInsets.only(left: size.width * .01),
-                  child: const Text(
-                    'Featured Recipes',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text('Featured Recipes',
+                      style: myTheme.textTheme.bodySmall),
                 ),
                 SizedBox(height: size.height * .01),
                 searchRecipeKeywords.isNotEmpty
@@ -74,13 +69,8 @@ class HomePage extends ConsumerWidget {
                                   SizedBox(
                                     height: size.height * .02,
                                   ),
-                                  const Text(
-                                    'No Recipe Found😔',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  Text('No Recipe Found😔',
+                                      style: myTheme.textTheme.bodyMedium),
                                 ],
                               ),
                             );

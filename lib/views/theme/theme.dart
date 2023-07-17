@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+class AppColors {
+  static const Color primary = Color(0xFF6CC51D);
+}
+
 ThemeData theme() {
   return ThemeData(
     textTheme: const TextTheme(
@@ -22,10 +26,24 @@ ThemeData theme() {
         fontWeight: FontWeight.w500,
       ),
       titleSmall: TextStyle(
-        color: Color(0xFF6CC51D),
+        color: AppColors.primary,
         fontWeight: FontWeight.w700,
         fontSize: 20,
         letterSpacing: 3,
+      ),
+      bodySmall: TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      labelSmall: TextStyle(
+        color: Color(0xFF8F8F9E),
+        fontSize: 15,
+        fontFamily: 'Poppins',
       ),
     ),
   );
