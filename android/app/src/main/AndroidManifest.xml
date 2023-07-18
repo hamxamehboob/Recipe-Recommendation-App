@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="recipe_recommendation_app"
+        android:label="Foodie Fiesta"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

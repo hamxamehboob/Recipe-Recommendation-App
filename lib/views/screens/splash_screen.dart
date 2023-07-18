@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.sizeOf(context);
+    final size = MediaQuery.sizeOf(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -64,15 +64,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 'Welcome to',
                 style: myTheme.textTheme.titleLarge,
               ),
-              Container(
-                height: size.height * 0.1,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(splashImage2),
-                  ),
-                ),
+              SizedBox(
+                height: size.height * .01,
               ),
-              SizedBox(height: size.height * 0.017),
+              Text(
+                'Foodie Fiesta',
+                style: myTheme.textTheme.titleSmall,
+              ),
+              SizedBox(height: size.height * 0.1),
               Container(
                 padding: const EdgeInsets.only(right: 47, left: 47),
                 child: Align(
@@ -85,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height * 0.3,
+                height: size.height * 0.4,
               ),
               Text(
                 'Developed by',
