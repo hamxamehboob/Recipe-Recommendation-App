@@ -1,5 +1,5 @@
 # Recipe Application.
-Discover a world of delicious recipes with our Recipe Recommendation app. Explore a wide range of dishes and easily search for recipes that suit your taste buds. Cooking has never been more enjoyable and accessible!
+Discover a world of delicious recipes with our Recipe Recommendation app. Explore a wide range of dishes and easily search for recipes that suit your taste buds. Cooking has never been more enjoyable and accessible.
 # Screenshot
  <table>
   <tr>
