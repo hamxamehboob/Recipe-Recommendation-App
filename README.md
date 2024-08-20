@@ -9,8 +9,8 @@ Discover a world of delicious recipes with our Recipe Recommendation app. Explor
      <td>Information Screen</td>
   </tr>
   <tr>
-    <td><img src="https://github.com/hamxamehboob/recipe-app/assets/97390895/bf6bf06b-6406-498d-a8ec-042223779a4e.jpg" width="1000%"></img></td>
-    <td><img src="https://github.com/hamxamehboob/recipe-app/assets/97390895/b1bc78c3-fb7f-453b-baea-c40301120f87.jpg" width="1000%"></img></td>
+    <td><img src="https://github.com/hamxamehboob/recipe-app/assets/97390895/bf6bf06b-6406-498d-a8ec-042223779a4e" width="1000%"></img></td>
+    <td><img src="https://github.com/hamxamehboob/recipe-app/assets/97390895/b1bc78c3-fb7f-453b-baea-c40301120f87" width="1000%"></img></td>
     <td><img src="https://github.com/hamxamehboob/recipe-app/assets/97390895/2cf5358b-c542-4a1b-8c4f-e0d2eb92ff9b" width="1000%"></img></td>
     <td><img src="https://github.com/hamxamehboob/recipe-app/assets/97390895/3dda959b-e220-4719-b7bf-ba350182092d" width="1000%"></img></td>
   </tr>
